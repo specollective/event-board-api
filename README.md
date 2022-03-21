@@ -28,7 +28,7 @@ cd event-board-api
 
 # Local Development
 
-Note: These instructions should work on most Linux/Unix based machined. Local development assumes you have a Python 3 installed on your computer.
+Note: These instructions should work on most Linux/Unix based machines. Local development assumes you have a Python 3 installed on your computer.
 
 1. Set up environment variables
 
