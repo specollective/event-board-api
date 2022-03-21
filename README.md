@@ -82,3 +82,6 @@ python manage.py runserver
 10. View Django REST framework graphical interface
 
   Visit http://localhost:8000/api/v1.
+
+
+Test.
