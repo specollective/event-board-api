@@ -4,7 +4,14 @@ Boilerplate Django application for a community event board.
 
 # Dependencies
 
-- djangorestframework
+- asgiref
+- dj-database-url
+- Django
+- django-environ
+- djangorestframework1
+- gunicorn0
+- psycopg2-binary
+- sqlparse
 
 # Getting started
 
@@ -41,6 +48,11 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
+6. Run tests
+```
+python manage.py test
+```
+
 7. Create a admin user
 ```
 python manage.py createsuperuser --email example@example.com --username admin
@@ -51,7 +63,4 @@ python manage.py createsuperuser --email example@example.com --username admin
 python manage.py runserver
 ```
 
-9. Run tests
-```
-python manage.py test
-```
+9. Visit http://localhost:8000/api/v1 to view Django REST framework graphical interface for the API.
