@@ -81,9 +81,7 @@ python manage.py runserver
   
 # Contributing
 
-1. Fork the repository
-
-Visit https://github.com/specollective/event-board-api and click the **Fork** button in the top-right corner to create new copy of event-board-api repo under your GitHub user account generating a URL in the form https://github.com/<GITHUB_USERNAME>/event-board-api.
+1. Fork the repository by visiting https://github.com/specollective/event-board-api and clicking the **Fork** button in the top-right corner of the page. This action will create new copy of event-board-api repo under your GitHub user account generating a URL in the form https://github.com/<GITHUB_USERNAME>/event-board-api.
 
 2. Clone the forked version of the repository.
 
