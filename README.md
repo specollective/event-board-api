@@ -17,6 +17,16 @@ This service implements a basic REST API that leverages the Django REST Framewor
 - psycopg2-binary
 - sqlparse
 
+# API Interface
+
+```
+GET /api/v1/events  
+GET /api/v1/events/ID
+POST /api/v1/events
+PUT /api/v1/events/ID
+DELETE /api/v1/events/ID
+```
+
 # Getting started
 
 Clone the git repository.
@@ -60,19 +70,13 @@ Note: These instructions should work on most Linux/Unix based machines. Local de
   python manage.py migrate
   ```
 
-6. Run tests
-
-  ```
-  python manage.py test
-  ```
-
-7. Create a admin user
+6. Create a admin user
 
   ```
   python manage.py createsuperuser --email example@example.com --username admin
   ```
 
-8. Run server
+7. Run development server
 ```
 python manage.py runserver
 ```
@@ -121,6 +125,22 @@ git push -u origin new-branch-name
 7. Compare & pull request
 
 Visit https://github.com/specollective/event-board-api and a notification to **Compare & pull request** should be visible at the top of the repository. If you wait a little while the notification may disappear. You can also find your branch from the branch drop down and visit a link that should look like https://github.com/specollective/event-board-api/tree/new-branch-name. From there you can click the **Contribute** dropdown button which will the **Open Pull Request** for the branch. Once you've open a pull request this repo's maintainers will review your contribution. The repo's maintainers will merge it if it is looks good, or they may ask you to make some changes.
+
+# Testing
+
+The application currently uses Django's out-of-the-box testing environment. You can run all tests using the manage.py comment.
+
+```
+python manage.py test
+```
+
+# Continuous Integration
+
+The application's tests are run via Github Actions for all new branches and pull requests. The configs for the test workflow can be found in [.github/workflows/test.yaml](https://github.com/specollective/event-board-api/blob/main/.github/workflows/test.yaml). 
+
+
+
+
 
 # Deployment
 
