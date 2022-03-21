@@ -19,7 +19,7 @@ This service implements a basic REST API that leverages the Django REST Framewor
 
 # Getting started
 
-Clone repository the git repository.
+Clone the git repository.
 
 ```
 git clone git@github.com:specollective/event-board-api.git
@@ -27,6 +27,8 @@ cd event-board-api
 ```
 
 # Local Development
+
+Note: These instructions should work on most Linux/Unix based machined. Local development assumes you have a Python 3 installed on your computer.
 
 1. Set up environment variables
 
