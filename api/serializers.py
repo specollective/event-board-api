@@ -8,5 +8,6 @@ class EventSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'description',
+            'featured',
         )
         model = models.Event

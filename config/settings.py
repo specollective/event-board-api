@@ -20,8 +20,17 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+ENV_PATH = os.path.join(BASE_DIR, '.env')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+if os.path.exists(ENV_PATH):
+    env = environ.Env()
+    environ.Env.read_env(ENV_PATH)
+    DEBUG = env('DEBUG') == "True"
+    DEVELOPMENT_MODE = env('DEVELOPMENT_MODE') == "True"
+else:
+    DEBUG = os.getenv("DEBUG", "False") == "True"
+    DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -29,12 +38,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG') == "True"
-
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-
-DEVELOPMENT_MODE = env('DEVELOPMENT_MODE') == "True"
 
 # Application definition
 
@@ -92,11 +96,23 @@ if DEVELOPMENT_MODE is True:
         }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    # In the test environment we pass test variables here.
     if os.getenv("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.environ.get('DB_DATABASE'),
+                'USER': os.environ.get('DB_USERNAME'),
+                'PASSWORD': os.environ.get('DB_PASSWORD'),
+                'HOST': os.environ.get('DB_HOST'),
+                'PORT': os.environ.get('DB_PORT'),
+            }
+        }
+        # raise Exception("DATABASE_URL environment variable not defined")
+    else:
+        DATABASES = {
+            "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+        }
 
 
 # Password validation
@@ -133,9 +149,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-# STATICFILES_DIRS = os.path.join(BASE_DIR, "static")
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -145,5 +161,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
